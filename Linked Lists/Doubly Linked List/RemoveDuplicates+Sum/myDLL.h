@@ -55,3 +55,22 @@ void myDLL::removeDuplicates()
 		current = current->next;
 	}
 }
+
+bool myDLL::isPalindrome() 
+{
+        if (head == nullptr) return true; // Empty list is palindrome
+        
+        Node* front = head;
+        Node* back = tail;
+        
+        while (front != back && front->prev != back) 
+	{
+            if (front->data != back->data) 
+	    {
+                return false;
+            }
+            front = front->next;
+            back = back->prev;
+        }
+        return true;
+}
