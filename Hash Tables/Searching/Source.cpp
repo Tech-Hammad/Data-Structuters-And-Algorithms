@@ -15,7 +15,7 @@ int main()
     cout << "Enter a name to search: ";
     cin >> name;
 
-    if (people.find(name) != people.end()) 
+    if (people.conatins(name)) 
     {
         cout << name << " is " << people[name] << " years old." << endl;
     }
