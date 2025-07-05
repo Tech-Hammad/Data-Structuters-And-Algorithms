@@ -31,6 +31,12 @@ public:
 
     virtual void LeafNodes() = 0;
     virtual void LeafNodes(Node* node) = 0;
+
+    virtual void deleteNode(int value) = 0;
+    virtual int findMin() = 0;
+    virtual int findMax() = 0;
+    virtual int findFloor(int key) = 0;
+    virtual int findCeil(int key) = 0;
 };
 
 Tree::Tree()
