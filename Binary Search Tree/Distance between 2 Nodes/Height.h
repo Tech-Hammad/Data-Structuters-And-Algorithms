@@ -2,38 +2,20 @@
 
 int BST::height()
 {
-    Node* temp = root;
+    return height(root);
+}
 
+int BST::height(Node* root)
+{
     if (root == nullptr)
     {
         return -1;
     }
-
-    queue<Node*> q;
-
-    q.push(temp);
-    int height = -1;
-
-    while (!q.empty())
+    else 
     {
-        int levelSize = q.size();
-        height++;
-
-        for (int i = 0;i < levelSize;i++)
-        {
-            Node* current = q.front();
-            q.pop();
-
-            if (current->leftChild)
-            {
-                q.push(current->leftChild);
-            }
-            if (current->rightChild)
-            {
-                q.push(current->rightChild);
-            }
-        }
+        int leftHeight = height(root->leftChild);
+        int rightHeight = height(root->rightChild);
+        
+        return 1 + max(leftHeight, rightHeight);
     }
-
-    return height;
 }
