@@ -11,6 +11,8 @@ int main()
     bst.insert(40);
     bst.insert(60);
     bst.insert(80);
+    bst.insert(55);
+    bst.insert(65);
     
     if (bst.search(30))
     {
@@ -49,6 +51,10 @@ int main()
 
     bst.LeafNodes();
 
-
+    cout << "\nMinimum Value in Tree: " << bst.findMin();
+    cout << "\nMaximum Value in Tree: " << bst.findMax();
+    cout << "\nFloor of Value: " << bst.findFloor(58);
+    cout << "\nCeil of Value: " << bst.findCeil(75);
+    
     return 0;
 }
