@@ -27,6 +27,12 @@ public:
 
     void LeafNodes();
     void LeafNodes(Node* node);
+
+    void deleteNode(int value);
+    int findMin();
+    int findMax();
+    int findFloor(int key);
+    int findCeil(int key);
 };
 
 void BST::insert(int value)
@@ -297,4 +303,164 @@ void BST::LeafNodes(Node* node)
 
     LeafNodes(node->leftChild);
     LeafNodes(node->rightChild);
+}
+
+void BST::deleteNode(int value)
+{
+    Node* current = root;
+    Node* parent = nullptr;
+
+    if (root == nullptr)
+    {
+        return;
+    }
+
+    // Searching Node
+    while (current != nullptr && current->data != value)
+    {
+        parent = current;
+
+        if (value < current->data)
+        {
+            current = current->leftChild;
+        }
+        else
+        {
+            current = current->rightChild;
+        }
+    }
+
+    if (current == nullptr)
+    {
+        cout << "Node with value " << value << " not found.\n";
+        return;
+    }
+
+    if (current->leftChild != nullptr && current->rightChild != nullptr)
+    {
+        Node* successor = current->rightChild;
+        Node* successorParent = current;
+
+        while (successor->leftChild != nullptr)
+        {
+            successorParent = successor;
+            successor = successor->leftChild;
+        }
+
+        // Copy successor value to current node
+        current->data = successor->data;
+
+        // Now we will delete successor 
+        current = successor;
+        parent = successorParent;
+    }
+
+    Node* child = nullptr;
+    
+    if (current->leftChild != nullptr)
+    {
+        child = current->leftChild;
+    }
+    else if (current->rightChild != nullptr)
+    {
+        child = current->rightChild;
+    }
+    else
+    {
+        child = nullptr;  // leaf node
+    }
+
+    if (parent == nullptr)
+    {
+        root = child;
+    }
+    else if (parent->leftChild == current)
+    {
+        parent->leftChild = child;
+    }
+    else
+    {
+        parent->rightChild = child;
+    }
+
+    delete current;
+    cout << "Node with value " << value << " Deleted.\n";
+}
+
+int BST::findMin()
+{
+    if (root == nullptr)
+    {
+        cout << "Tree is Empty.\n";
+    }
+    Node* current = root;
+
+    while (current->leftChild != nullptr)
+    {
+        current = current->leftChild;
+    }
+    return current->data;
+}
+
+int BST::findMax()
+{
+    if (root == nullptr)
+    {
+        cout << "Tree is Empty.\n";
+    }
+    Node* current = root;
+
+    while (current->rightChild != nullptr)
+    {
+        current = current->rightChild;
+    }
+    return current->data;
+}
+
+int BST::findFloor(int key)
+{
+    Node* current = root;
+    int floor = 0;
+
+    while (current != nullptr)
+    {
+        if (current->data == key)
+        {
+            return current->data;
+        }
+        else if (key > current->data)
+        {
+            floor = current->data;
+            current = current->rightChild;
+        }
+        else 
+        {
+            current = current->leftChild;
+        }
+    }
+    return floor;
+}
+
+int BST::findCeil(int key)
+{
+    Node* current = root;
+    int Ceil = 0;
+
+    while (current != nullptr)
+    {
+        if (current->data == key)
+        {
+            return current->data;
+        }
+        else if (key < current->data)
+        {
+            Ceil = current->data;
+            current = current->leftChild;
+        }
+        else
+        {
+            current = current->rightChild;
+        }
+    }
+    return Ceil;
 }
